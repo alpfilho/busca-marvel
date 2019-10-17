@@ -1,0 +1,2 @@
+export { CharactersList } from "./charactersList";
+
