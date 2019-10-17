@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import "normalize.css";
 import "./app.style.css";
+
+import { routes } from "config";
 
 import { Header } from "./components/header";
 import { Footer } from "components/footer";
@@ -10,27 +12,42 @@ import { Search } from "components/search";
 
 import { Character } from "pages/character";
 import { CharactersList } from "pages/charactersList";
+import { SplashScreen } from "components/splashScreen";
 
 function App() {
+  const splashDuration = 0;
+  const [showApp, setShowApp] = useState(false);
+
+  if (showApp) {
+    return (
+      <BrowserRouter>
+        <Header />
+        <Search />
+
+        <Switch>
+          {/* Página de personagem */}
+          <Route path={`${routes.char.path}/:id`}>
+            <Character />
+          </Route>
+
+          {/* Roteamento e Exibição de Personagens */}
+          <Route path="/">
+            <CharactersList />
+          </Route>
+        </Switch>
+
+        <Footer />
+      </BrowserRouter>
+    );
+  }
+
   return (
-    <BrowserRouter>
-      <Header />
-      <Search />
-
-      <Switch>
-        {/* Página de personagem */}
-        <Route path="/personagem/:slug">
-          <Character />
-        </Route>
-
-        {/* Roteamento e Exibição de Personagens */}
-        <Route path={["/:page", "/"]}>
-          <CharactersList />
-        </Route>
-      </Switch>
-
-      <Footer />
-    </BrowserRouter>
+    <SplashScreen
+      duration={splashDuration}
+      onAnimationEnd={() => {
+        setShowApp(true);
+      }}
+    />
   );
 }
 
