@@ -1,54 +1,62 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React, { useState } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import "normalize.css";
-import "./app.style.css";
+import 'normalize.css';
+import './app.style.css';
 
-import { routes } from "config";
+import { routes } from 'config';
 
-import { Header } from "./components/header";
-import { Footer } from "components/footer";
-import { Search } from "components/search";
+import { Header } from './components/header';
+import { Footer } from 'components/footer';
+import { Search } from 'components/search';
 
-import { Character } from "pages/character";
-import { CharactersList } from "pages/charactersList";
-import { SplashScreen } from "components/splashScreen";
+import { Character } from 'pages/character';
+import { CharactersList } from 'pages/charactersList';
+import { SplashScreen } from 'components/splashScreen';
+import { NotFound } from 'pages/notFound';
 
 function App() {
-  const splashDuration = 0;
-  const [showApp, setShowApp] = useState(false);
+	/* Duração da Splash Screen em MS */
+	const splashDuration = 250;
 
-  if (showApp) {
-    return (
-      <BrowserRouter>
-        <Header />
-        <Search />
+	/* Estado responsável por trocar o app e a splash */
+	const [showApp, setShowApp] = useState(false);
 
-        <Switch>
-          {/* Página de personagem */}
-          <Route path={`${routes.char.path}/:id`}>
-            <Character />
-          </Route>
+	if (showApp) {
+		return (
+			<BrowserRouter>
+				<Header />
+				<Search />
 
-          {/* Roteamento e Exibição de Personagens */}
-          <Route path="/">
-            <CharactersList />
-          </Route>
-        </Switch>
+				<Switch>
+					{/* Página de personagem */}
+					<Route path={`${routes.char.path}/:id`}>
+						<Character />
+					</Route>
+					{/* Roteamento e Exibição de Personagens */}
+					<Route path="/" exact>
+						<CharactersList />
+					</Route>
+					{/* Erro 404 */}
+					<Route path="*">
+						<NotFound />
+					</Route>
+				</Switch>
 
-        <Footer />
-      </BrowserRouter>
-    );
-  }
+				<Footer />
+			</BrowserRouter>
+		);
+	}
 
-  return (
-    <SplashScreen
-      duration={splashDuration}
-      onAnimationEnd={() => {
-        setShowApp(true);
-      }}
-    />
-  );
+	return (
+		<SplashScreen
+			duration={splashDuration}
+			onAnimationEnd={() => {
+				/*  Ao finalizar a animação, mostra o app */
+				setShowApp(true);
+			}}
+		/>
+	);
 }
 
 export default App;

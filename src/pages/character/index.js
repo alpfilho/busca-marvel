@@ -1,1 +1,1 @@
-export { Character } from "./character";
+export { Character } from './character';

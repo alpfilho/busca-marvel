@@ -1,5 +1,5 @@
-import React from "react";
+import React from 'react';
 
 export const Character = () => {
-  return <h1>Página de Personagem</h1>;
+	return <h1>Página de Personagem</h1>;
 };

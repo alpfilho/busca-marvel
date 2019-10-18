@@ -1,92 +1,107 @@
-import React, { useEffect, useState } from "react";
-import queryString from "query-string";
+import React, { useEffect, useState } from 'react';
+import queryString from 'query-string';
 
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
-import { fetchChars as apiFetchChars } from "services/charactersService";
+import { fetchChars as apiFetchChars } from 'services/charactersService';
 import {
-  CharactersListContainer,
-  List,
-  Header,
-  HeaderTitle,
-  Body
-} from "./charactersList.style";
+	Body,
+	CharactersListContainer,
+	Header,
+	HeaderTitle,
+	List,
+	Title,
+	SubTitle,
+	TitleContainer
+} from './charactersList.style';
 
-import { ContentContainer } from "components/contentContainer";
-import { CharRow } from "./components/charRow";
-import { Loading } from "./components/loading";
+import { ContentContainer } from 'components/contentContainer';
+import { CharRow } from './components/charRow';
+import { Loading } from './components/loading';
 
 export const CharactersList = () => {
-  const location = useLocation();
-  const [charactersArray, setCharArray] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+	const location = useLocation();
+	const [charactersArray, setCharArray] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState(null);
 
-  /** Parametro de Busca da URL */
-  const { name: searchName } = queryString.parse(location.search);
+	/* Parametros da Url */
+	const { name: searchName, page } = queryString.parse(location.search);
 
-  /* Determina se a rota atual é de busca */
-  const isSearch = searchName ? true : false;
+	/* Determina se a rota atual é de busca */
+	const isSearch = searchName ? true : false;
 
-  /**
-   *
-   */
-  const fetchChars = async (search, offset, limit) => {
-    try {
-      setIsLoading(true);
-      const response = await apiFetchChars(search, offset, limit);
+	/*  */
+	const fetchChars = async (name, page) => {
+		setIsLoading(true);
+		try {
+			const response = await apiFetchChars(name, page);
 
-      if (response.data && response.data.code === 200) {
-        const characters = response.data.data.results;
-        setIsLoading(false);
-        setCharArray(characters);
-      } else {
-        setError("");
-      }
-    } catch (error) {
-      setIsLoading(false);
-      console.log(error);
-    }
-  };
+			console.log(response);
 
-  useEffect(() => {
-    /**
-     * Caso seja uma busca
-     */
-    if (isSearch) {
-      fetchChars(isSearch, 0, 10);
-    } else {
-      /**
-       * Caso não exista nada sendo buscado, retorna a lista inicial ou paginada
-       */
-      fetchChars(null, 0, 10);
-    }
-  }, [isSearch, searchName]);
+			if (response.data && response.data.code === 200) {
+				const characters = response.data.data.results;
+				setCharArray(characters);
+			} else {
+				setError('request');
+			}
+		} catch (error) {
+			console.log(error);
+		}
+		setIsLoading(false);
+	};
 
-  return (
-    <CharactersListContainer>
-      <List>
-        <ContentContainer>
-          <Header>
-            <HeaderTitle>Personagem</HeaderTitle>
-            <HeaderTitle>Descrição</HeaderTitle>
-          </Header>
-        </ContentContainer>
-        <Body>
-          {charactersArray.map(char => {
-            return (
-              <CharRow
-                key={char.id}
-                id={char.id}
-                name={char.name}
-                description={char.description}
-                thumbnail={char.thumbnail}
-              />
-            );
-          })}
-          <Loading isLoading={isLoading} />
-        </Body>
-      </List>
-    </CharactersListContainer>
-  );
+	/**
+	 * Toda vez que o endereço muda, faz uma nova consulta
+	 */
+	useEffect(() => {
+		fetchChars(searchName, page);
+	}, [location.pathname, page, searchName]);
+
+	return (
+		<CharactersListContainer>
+			<List>
+				<ContentContainer>
+					<TitleContainer>
+						{isSearch ? (
+							<SubTitle>
+								Resultados para busca pelo nome "<strong>{searchName}</strong>"
+							</SubTitle>
+						) : null}
+
+						<Title>Personagens Marvel: </Title>
+					</TitleContainer>
+					<Header>
+						<HeaderTitle>Personagem</HeaderTitle>
+						<HeaderTitle>Descrição</HeaderTitle>
+					</Header>
+				</ContentContainer>
+				<Body>
+					{error ? (
+						error === 'request' ? (
+							<>
+								Erro ao comunicar com a Marvel <span aria-hidden>😩</span>
+							</>
+						) : error === 'search' ? (
+							<>
+								Nenhum personagem com este nome <span aria-hidden>😩</span>
+							</>
+						) : null
+					) : (
+						charactersArray.map((char) => {
+							return (
+								<CharRow
+									key={char.id}
+									id={char.id}
+									name={char.name}
+									description={char.description}
+									thumbnail={char.thumbnail}
+								/>
+							);
+						})
+					)}
+				</Body>
+			</List>
+		</CharactersListContainer>
+	);
 };

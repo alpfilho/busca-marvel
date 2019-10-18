@@ -1,2 +1,2 @@
-export { ContentContainer } from "./contentContainer";
-export { Container, Content } from "./contentContainer.style";
+export { ContentContainer } from 'components/contentContainer/contentContainer';
+export { Container, Content } from './contentContainer.style';
