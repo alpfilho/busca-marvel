@@ -1,1 +1,1 @@
-export { CharRow } from "./charRow";
+export { CharRow } from './charRow';

@@ -32,7 +32,7 @@ export const SplashScreen = ({ duration: durationProp, onAnimationEnd }) => {
 	/* State Ao carregar a logo da Marvel */
 	const [isMLogoLoaded, setIsMLogoLoaded] = useState(false);
 
-	/* State Ao carregar a logo da Marvel */
+	/* State Ao carregar a logo da Objective */
 	const [isObjLogoLoaded, setIsObjLogoLoaded] = useState(false);
 
 	const onMarvelLogoLoaded = () => {
@@ -82,17 +82,17 @@ export const SplashScreen = ({ duration: durationProp, onAnimationEnd }) => {
 							variants={{
 								hidden: {
 									opacity: 0,
-									y: '-33%',
+									y: -16,
 									scale: 1.1
 								},
 								visible: {
 									opacity: 1,
-									y: '0%',
+									y: 0,
 									scale: 1
 								},
 								exit: {
 									opacity: 0,
-									y: '-33%'
+									y: -16
 								}
 							}}
 						>
@@ -103,7 +103,7 @@ export const SplashScreen = ({ duration: durationProp, onAnimationEnd }) => {
               Logo Marvel
             */}
 						<Logo
-							initial={false}
+							initial="hidden"
 							animate={state}
 							transition={{
 								type: 'tween',
@@ -112,17 +112,17 @@ export const SplashScreen = ({ duration: durationProp, onAnimationEnd }) => {
 							variants={{
 								hidden: {
 									opacity: 0,
-									y: '16%',
+									y: 33,
 									scale: 1.1
 								},
 								visible: {
 									opacity: 1,
-									y: '0%',
+									y: 0,
 									scale: 1
 								},
 								exit: {
 									opacity: 0,
-									y: '-16%',
+									y: -33,
 									scale: 1
 								}
 							}}
@@ -135,7 +135,7 @@ export const SplashScreen = ({ duration: durationProp, onAnimationEnd }) => {
 					</LogoContainer>
 					<CreditsContainer>
 						<Title
-							initial={false}
+							initial="hidden"
 							animate={state}
 							transition={{
 								type: 'tween',
@@ -144,15 +144,15 @@ export const SplashScreen = ({ duration: durationProp, onAnimationEnd }) => {
 							variants={{
 								hidden: {
 									opacity: 0,
-									y: '20%'
+									y: -10
 								},
 								visible: {
 									opacity: 1,
-									y: '0%'
+									y: 0
 								},
 								exit: {
 									opacity: 0,
-									y: '-20%'
+									y: 10
 								}
 							}}
 						>
@@ -168,18 +168,19 @@ export const SplashScreen = ({ duration: durationProp, onAnimationEnd }) => {
 							variants={{
 								hidden: {
 									opacity: 0,
-									y: '20%'
+									y: -16
 								},
 								visible: {
 									opacity: 1,
-									y: '0%'
+									y: 0
 								},
 								exit: {
 									opacity: 0,
-									y: '-20%'
+									y: 8
 								}
 							}}
 							src={logoObjective}
+							alt="Objective Solutions"
 							onLoad={() => {
 								onObjectiveLogoLoaded();
 							}}

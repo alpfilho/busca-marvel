@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Container, Content } from 'components/contentContainer';
 import { colors } from 'config';
 
-export const HeaderContainer = styled('header')`
+export const HeaderContainer = styled(motion.header)`
 	${Container} {
 		${Content} {
 			padding-top: 20px;

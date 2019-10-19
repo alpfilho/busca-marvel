@@ -1,23 +1,25 @@
 body {
-  background-color: #ccc;
-  font-family: "Roboto", -apple-system, BlinkMacSystemFont, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	background-color: #ccc;
+	font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 button,
 input {
-  font-family: "Roboto", -apple-system, BlinkMacSystemFont, sans-serif;
+	font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 /* container do app */
 .app {
-  display: flex;
-  flex-direction: column;
-  background-color: #fff;
-  min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	flex-shrink: 0;
+	background-color: #fff;
+	height: 100vh;
+	width: 100%;
 }

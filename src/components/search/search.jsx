@@ -14,7 +14,6 @@ import {
 
 import { colors } from 'config';
 import { ContentContainer } from 'components/contentContainer';
-
 export const Search = () => {
 	const [inputValue, setInputValue] = useState('');
 	const input = useRef(null);
@@ -54,9 +53,25 @@ export const Search = () => {
 		}
 	}, [location.search]);
 	return (
-		<SearchContainer>
+		<SearchContainer
+			key="search"
+			initial={{ opacity: 0, y: 16 }}
+			animate={{ opacity: 1, y: 0 }}
+			exit={{ opacity: 0, y: 0, transition: { when: 'afterChildren' } }}
+			transition={{
+				type: 'spring',
+				damping: 100,
+				mass: 2
+			}}
+		>
 			<ContentContainer>
-				<SearchForm onSubmit={handleSubmit}>
+				<SearchForm
+					onSubmit={handleSubmit}
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0 }}
+					transition={{ duration: 0.5 }}
+				>
 					<Label>Descubra um Personagem:</Label>
 					<InputContainer>
 						<Input

@@ -1,18 +1,23 @@
 import styled from 'styled-components';
-import { SitePage } from 'components/page/page.style';
+
 import { Container, Content } from 'components/contentContainer';
 import { colors } from 'config';
 
-export const NotFoundContainer = styled(SitePage)`
-	height: ;
+export const NotFoundContainer = styled('div')`
+	flex-grow: 1;
+	min-height: calc(100vh - 72px);
+	position: relative;
+	display: flex;
+
 	${Container} {
-		height: 100%;
+		flex-grow: 1;
+
 		${Content} {
+			height: 100%;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-			height: 100%;
 
 			h1 {
 				font-weight: 900;

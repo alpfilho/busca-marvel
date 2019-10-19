@@ -2,8 +2,9 @@ import styled from 'styled-components';
 
 import { colors } from 'config';
 import { Container, Content } from 'components/contentContainer';
+import { motion } from 'framer-motion';
 
-export const SearchContainer = styled('div')`
+export const SearchContainer = styled(motion.div)`
 	${Container} {
 		${Content} {
 			padding-top: 32px;
@@ -12,7 +13,7 @@ export const SearchContainer = styled('div')`
 	}
 `;
 
-export const SearchForm = styled('form')`
+export const SearchForm = styled(motion.form)`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
