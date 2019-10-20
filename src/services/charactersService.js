@@ -19,7 +19,7 @@ export const fetchChars = (name, page = 1, cancelTokenRef) => {
 	const limit = 10;
 	const offset = (page - 1) * limit;
 
-	return axios.get('http://gateway.marvel.com/v1/public/characters', {
+	return axios.get('//gateway.marvel.com/v1/public/characters', {
 		params: {
 			nameStartsWith: name,
 			ts,
@@ -35,7 +35,7 @@ export const fetchChars = (name, page = 1, cancelTokenRef) => {
 export const fetchChar = (id, cancelTokenRef) => {
 	const { apikey, hash, ts } = authorize();
 
-	return axios.get(`http://gateway.marvel.com/v1/public/characters/${id}`, {
+	return axios.get(`//gateway.marvel.com/v1/public/characters/${id}`, {
 		cancelToken: new axios.CancelToken((cb) => {
 			cancelTokenRef.current.executor = cb;
 		}),
@@ -50,7 +50,7 @@ export const fetchChar = (id, cancelTokenRef) => {
 export const fetchCharComics = (id, cancelTokenRef) => {
 	const { apikey, hash, ts } = authorize();
 	return axios.get(
-		`http://gateway.marvel.com/v1/public/characters/${id}/comics`,
+		`//gateway.marvel.com/v1/public/characters/${id}/comics`,
 		{
 			params: {
 				ts,

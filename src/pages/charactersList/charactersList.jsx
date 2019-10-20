@@ -26,7 +26,7 @@ export const animationProps = {
 	exit: { y: '-33%', opacity: 0 },
 	transition: {
 		type: 'tween',
-		duration: 0.75
+		duration: 1
 	}
 };
 

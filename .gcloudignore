@@ -1,0 +1,18 @@
+# Aqui eu Ignoro tudo que é relacionado a desenvolvimento
+/.git
+/.idea
+/node_modules
+/public
+/src
+.editorconfig
+.env
+.gcloudignore
+.gitignore
+.prettierrc
+app.yaml
+env.example
+jsconfig.json
+package.json
+README.md
+yarn.lock
+
